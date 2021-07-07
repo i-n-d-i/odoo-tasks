@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="employee_tree" model="ir.ui.view">
+        <field name="name">employee.vacations.tree</field>
+        <field name="model">employee.vacations</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="user"/>
+                <field name="reason"/>
+                <field name="date"/>
+                <field name="to"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_form" model="ir.ui.view">
+        <field name="name">employee.vacations.form</field>
+        <field name="model">employee.vacations</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit" string="Submit"
+                            class="btn-primary" type="object"/>
+                    <button name="action_reject" string="Reject"
+                            class="btn-primary" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="user"/>
+                            <field name="reason"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="to"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="documents" filename="document_name"/>
+                        <field name="document_name" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_kanban" model="ir.ui.view">
+            <field name="name">employee.vacations.kanban</field>
+            <field name="model">employee.vacations</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column o_kanban_project_tasks" on_create="quick_create" quick_create_view="project.quick_create_task_form" examples="project" js_class="project_kanban" sample="1">
+                    <field name="name"/>
+                    <field name="user"/>
+                    <field name="reason"/>
+                    <field name="date"/>
+                    <field name="to"/>
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div clas="oe_kanban_details">
+                                    <ul>
+                                        <li>
+                                            Name: <field name="name"/>
+                                        </li>
+                                        <li>
+                                            User: <field name="user"/>
+                                        </li>
+                                        <li>
+                                            Reason: <field name="reason"/>
+                                        </li>
+                                        <li>
+                                            Date: <field name="date"/>
+                                        </li>
+                                        <li>
+                                            To: <field name="to"/>
+                                        </li>
+                                        <li>
+                                            State: <field name="state"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+    </record>
+
+    <record id="employee_action" model="ir.actions.act_window">
+        <field name="name">Employee</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.vacations</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_no_content_smiling_face">
+                    apply your absence request!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="Company_root"
+              name="Company"
+              sequence="10"/>
+
+    <menuitem id="Company_employee_root"
+              name="Employee"
+              parent="Company_root"
+              action="employee_action"
+              sequence="10"/>
+</odoo>

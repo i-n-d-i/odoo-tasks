@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_applicant_inherit" model="ir.ui.view">
+        <field name="name">hr.applicant.inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+
+            <field name="type_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+             <field name="medium_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <group name="Job" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </group>
+            <group name="Contact" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </group>
+
+
+            <field name="partner_mobile" position="after">
+                <label for="salary_expected"/>
+                <div class="o_row">
+                    <field name="salary_expected"/>
+                    <span attrs="{'invisible':[('salary_expected_extra','=',False)]}">+</span>
+                    <field name="salary_expected_extra" placeholder="Extra advantages..."/>
+                </div>
+            </field>
+            <field name="user_id" position="after">
+                <field name="interviewer"/>
+            </field>
+            <field name="interviewer" position="before">
+                <field name="responsible"/>
+            </field>
+
+            <sheet>
+                <notebook position="inside">
+                    <page string="Personal information" name="personal_information">
+                        <group>
+                            <group>
+                                <field name="gender"/>
+                                <field name="nationality"/>
+                                <field name="birth"/>
+                            </group>
+                            <group>
+                                <field name="citizenship"/>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="marital_status"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Work experience" name="work_experience">
+                        <group>
+                            <group>
+                                <field name="no_experience"/>
+                                <field name="workplace"/>
+                                <field name="position"/>
+                                <field name="work_term"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Education" name="education">
+                        <group>
+                            <group>
+                                <field name="institution"/>
+                                <field name="specialization"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="to"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Job" name="job">
+                        <group>
+                            <group>
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                            </group>
+                        </group>
+                    </page>
+
+                </notebook>
+            </sheet>
+        </field>
+    </record>
+</odoo>
